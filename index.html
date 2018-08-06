@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Giphy Tool</title>
 
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Concert+One|Fredoka+One|Luckiest+Guy|Oxygen" rel="stylesheet">
 
 
 </head>
@@ -14,26 +16,36 @@
 <body>
 
     <div class="container">
-        <h1>Express Your Mood With Some Giphys!</h1>
+
+        <div class="top">
+            <div class="title">
+                <h1>Express Your Mood With Some Giphys!</h1>
+            </div>
+
+
+            <form id="giphyForm">
+                <label for="giphyInput">Type In Your Mood Here</label>
+                <br>
+                <input type="text" id="giphyInput">
+                <br>
+                <!-- button to add new giphy -->
+                <input id="addGiphy" type="submit" value="Search">
+                <button id="reset">Reset Search</button>
+            </form>
+
+            <!-- space for new buttons -->
+            <div id="buttons-view"></div>
+
+            <div id="instructions">
+                <h4>Click on Giphy to Play or Pause it</h4>
+            </div>
 
 
 
-        <form id="giphyForm">
-            <label for="giphyInput">Type In Your Mood Here</label>
-            <br>
-            <input type="text" id="giphyInput">
-            <br>
-            <!-- button to add new giphy -->
-            <input id="addGiphy" type="submit" value="Search">
-            <button id="reset">Reset Search</button>
-        </form>
-
-        <!-- space for new buttons -->
-        <div id="buttons-view"></div>
+        </div>
 
         <!-- Where giphys will go -->
         <div id="giphyView"></div>
-
 
         <!-- linking AJAX -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
