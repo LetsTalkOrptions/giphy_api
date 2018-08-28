@@ -2,7 +2,6 @@
     padding-top: 10px;
     font-size: 30px;
 }
-
 .top {
     background-color: rgb(20, 148, 233);
     border-radius: 50px;
@@ -11,16 +10,17 @@
     color: yellow;
     padding-bottom: 15px;
 }
-
 body {
     background-image: url("../images/stars.png");
 }
-
 #giphyInput {
     font-size: 20px;
     margin-top: 10px;
+    font-family: 'Luckiest Guy', cursive;
+    text-align: center;
+    color: rgb(20, 148, 233);
+    padding-top: 5px;
 }
-
 #giphyForm {
     text-align: center;
     font-family: 'Luckiest Guy', cursive;
@@ -31,7 +31,6 @@ body {
     padding-bottom: 10px;
     /* padding-top: 10px; */
 }
-
 p {
     font-family: 'Luckiest Guy', cursive;
     background-color: rgb(20, 148, 233);
@@ -44,16 +43,13 @@ p {
     margin-bottom: 20px;
     margin-top: 10px;
 }
-
 #buttons-view {
     text-align: center;
 }
-
 #giphyView {
     text-align: center;
     margin-top: 20px;
 }
-
 .giphy-btn {
     font-family: 'Luckiest Guy', cursive;
     margin-right: 5px;
@@ -63,7 +59,6 @@ p {
     color: rgb(20, 148, 233);
 
 }
-
 #addGiphy {
     margin-top: 10px;
     font-family: 'Luckiest Guy', cursive;
@@ -73,7 +68,6 @@ p {
     background-color: yellow;
     color: rgb(20, 148, 233); 
 }
-
 #reset {
     margin-top: 10px;
     font-family: 'Luckiest Guy', cursive;
@@ -83,8 +77,14 @@ p {
     background-color: yellow;
     color: rgb(20, 148, 233);
 }
-
 h4 {
     text-align: center;
     font-size: 26px;
+    letter-spacing: 1.2px
+}
+h1 {
+    letter-spacing: 1.2px;
+}
+img {
+    width: 400px;
 }
