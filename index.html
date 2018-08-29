@@ -1,143 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Giph Me A Feeling</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Giph Me A Feeling</title>
 
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Concert+One|Fredoka+One|Luckiest+Guy|Oxygen" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Concert+One|Fredoka+One|Luckiest+Guy|Oxygen" rel="stylesheet">
 
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <div class="container">
+    <div class="container">
 
-            <div class="top">
+        <div class="top">
 
-                <div class="title">
-                    <h1>Giph Me A Feeling</h1>
-                </div>
-                <form id="giphyForm">
-                    <label style="letter-spacing: 1.2px" for="giphyInput">Type In Your Mood Here</label>
-                    <br>
-                    <input type="text" id="giphyInput">
-                    <br>
-                    <!-- button to add new giphy -->
-                    <input id="addGiphy" type="submit" value="Search">
-                    <button id="reset">Reset Search</button>
-                </form>
-                <!-- space for new buttons -->
-                <div id="buttons-view"></div>
-                <div id="instructions">
-                    <h4>Click on Giphy to Play or Pause it</h4>
-                </div>
-
+            <div class="title">
+                <h1>Giph Me A Feeling</h1>
+            </div>
+            <form id="giphyForm">
+                <label style="letter-spacing: 1.2px" for="giphyInput">Type In Your Mood Here</label>
+                <br>
+                <input type="text" id="giphyInput">
+                <br>
+                <!-- button to add new giphy -->
+                <input id="addGiphy" type="submit" value="Search">
+                <button id="reset">Reset Search</button>
+            </form>
+            <!-- space for new buttons -->
+            <div id="buttons-view"></div>
+            <div id="instructions">
+                <h4>Click on Giphy to Play or Pause it</h4>
             </div>
 
-            <!-- Where giphys will go -->
-            <div id="giphyView"></div>
-            <!-- linking AJAX -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <!-- adding GIPHY API -->
-            <script type="text/javascript">
-
-                // buttons displayed at page load
-                var topics = ["Happy", "Eye Roll", "Tired", "Sad", "Ninja", "TGIF"];
-                // Capture giphy name from data-attribute
-                function displayGiphyInfo() {
-
-                    var giphyName = $(this).attr("data-name");
-                    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphyName + "&api_key=YjofzDzS9CKhhiiaF1a7HYycxk00KpxX&limit=10";
-
-                    // AJAX to call the giphy button clicked
-                    $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                    })
-                        .then(function (response) {
-                            console.log(response);
-
-                            for (var i = 0; i < response.data.length; i++) {
-                                var results = response.data;
-                                // Giphy Div to store giphy
-                                var giphyDiv = $("<div class ='giphy'>");
-                                // store rating
-                                var rating = response.data[i].rating;
-                                // p element that will be posted to page
-                                var printRating = $("<p>").text("Rating: " + rating).attr("id", "giphyView ratingView");
-                                // store the image property
-                                var data_still = results[i].images.fixed_height_still.url;
-                                var data_animate = results[i].images.fixed_height.url;
-                                // Creating and storing image tag
-                                var giphyImage = $("<img>");
-                                // Setting the src attribute to imageStill
-                                giphyImage.attr("src", data_still);
-                                giphyImage.attr("class", "gif");
-                                giphyImage.attr("data-state", "still");
-                                giphyImage.attr("data-animate", data_animate);
-                                giphyImage.attr("data-still", data_still);
-                                // post giphy images to page
-                                giphyDiv.append(giphyImage);
-                                // post printRating to page
-                                giphyDiv.append(printRating);
-                                // Prepending the giphyImage to the images div
-                                $("#giphyView").append(giphyDiv);
-
-                            }
-                        });
-                }
-                // Function for showing giphy data
-                function renderButtons() {
-                    $("#buttons-view").empty();
-                    // Loop through array of giphys
-                    for (var i = 0; i < topics.length; i++) {
-                        // make new button 
-                        var newButton = $("<button>");
-                        // Adding a class of giphy to our button
-                        newButton.addClass("giphy-btn");
-                        // Adding a data-attribute
-                        newButton.attr("data-name", topics[i]);
-                        // Providing the initial button text
-                        newButton.text(topics[i]);
-                        // Adding the button to the HTML
-                        $("#buttons-view").append(newButton);
-                        console.log("giphy data working");
-                    }
-                }
-                // This is for when user clicks buttons
-                $("#addGiphy").on("click", function (event) {
-                    event.preventDefault();
-                    // Get input from user text input
-                    var giphyName = $("#giphyInput").val().trim();
-                    // Add giphy from user input to array
-                    topics.push(giphyName);
-                    // Reprocess the movie array
-                    renderButtons();
-                })
-                // Change data state
-                function stateChange() {
-                    var state = $(this).attr("data-state");
-                    if (state === "still") {
-                        $(this).attr("src", $(this).attr("data-animate"));
-                        $(this).attr("data-state", "animate");
-                    } else {
-                        $(this).attr("src", $(this).attr("data-still"));
-                        $(this).attr("data-state", "still");
-                    }
-                }
-                // Click event to have displayGiphyInfo execute
-                $(document).on("click", ".giphy-btn", displayGiphyInfo);
-                // Click event on gifs to execute the different data states
-                $(document).on("click", ".gif", stateChange);
-                // call function to display original buttons
-                renderButtons();
-            </script>
         </div>
-    </body>
+
+        <!-- Where giphys will go -->
+        <div id="giphyView"></div>
+        <!-- linking AJAX -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- adding GIPHY API -->
+        <script type="text/javascript">
+
+            // buttons displayed at page load
+            var topics = ["Happy", "Eye Roll", "Tired", "Sad", "Ninja", "TGIF"];
+            // Capture giphy name from data-attribute
+            function displayGiphyInfo() {
+
+                var giphyName = $(this).attr("data-name");
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphyName + "&api_key=YjofzDzS9CKhhiiaF1a7HYycxk00KpxX&limit=10";
+
+                // AJAX to call the giphy button clicked
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                })
+                    .then(function (response) {
+                        console.log(response);
+
+                        for (var i = 0; i < response.data.length; i++) {
+                            var results = response.data;
+                            // Giphy Div to store giphy
+                            var giphyDiv = $("<div class ='giphy'>");
+                            // store rating
+                            var rating = response.data[i].rating;
+                            // p element that will be posted to page
+                            var printRating = $("<p>").text("Rating: " + rating).attr("id", "giphyView ratingView");
+                            // store the image property
+                            var data_still = results[i].images.fixed_height_still.url;
+                            var data_animate = results[i].images.fixed_height.url;
+                            // Creating and storing image tag
+                            var giphyImage = $("<img>");
+                            // Setting the src attribute to imageStill
+                            giphyImage.attr("src", data_still);
+                            giphyImage.attr("class", "gif");
+                            giphyImage.attr("data-state", "still");
+                            giphyImage.attr("data-animate", data_animate);
+                            giphyImage.attr("data-still", data_still);
+                            // post giphy images to page
+                            giphyDiv.append(giphyImage);
+                            // post printRating to page
+                            giphyDiv.append(printRating);
+                            // Prepending the giphyImage to the images div
+                            $("#giphyView").append(giphyDiv);
+
+                        }
+                    });
+            }
+            // Function for showing giphy data
+            function renderButtons() {
+                $("#buttons-view").empty();
+                // Loop through array of giphys
+                for (var i = 0; i < topics.length; i++) {
+                    // make new button 
+                    var newButton = $("<button>");
+                    // Adding a class of giphy to our button
+                    newButton.addClass("giphy-btn");
+                    // Adding a data-attribute
+                    newButton.attr("data-name", topics[i]);
+                    // Providing the initial button text
+                    newButton.text(topics[i]);
+                    // Adding the button to the HTML
+                    $("#buttons-view").append(newButton);
+                    console.log("giphy data working");
+                }
+            }
+            // This is for when user clicks buttons
+            $("#addGiphy").on("click", function (event) {
+                event.preventDefault();
+                // Get input from user text input
+                var giphyName = $("#giphyInput").val().trim();
+                // Add giphy from user input to array
+                topics.push(giphyName);
+                // Reprocess the movie array
+                renderButtons();
+            })
+            // Change data state
+            function stateChange() {
+                var state = $(this).attr("data-state");
+                if (state === "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                } else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                }
+            }
+            // Click event to have displayGiphyInfo execute
+            $(document).on("click", ".giphy-btn", displayGiphyInfo);
+            // Click event on gifs to execute the different data states
+            $(document).on("click", ".gif", stateChange);
+            // call function to display original buttons
+            renderButtons();
+        </script>
+    </div>
+</body>
 
 </html>
